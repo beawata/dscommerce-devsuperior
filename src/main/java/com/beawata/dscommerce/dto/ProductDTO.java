@@ -2,8 +2,13 @@ package com.beawata.dscommerce.dto;
 
 
 import com.beawata.dscommerce.entities.Product;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+
+@JsonPropertyOrder({"id", "name", "description", "price", "imgUrl"})
 public class ProductDTO {
+
 
     private Long id;
     private String name;

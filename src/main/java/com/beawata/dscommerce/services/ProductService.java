@@ -2,6 +2,7 @@ package com.beawata.dscommerce.services;
 
 import com.beawata.dscommerce.dto.ProductDTO;
 import com.beawata.dscommerce.entities.Product;
+import com.beawata.dscommerce.exceptions.ResourceNotFoundException;
 import com.beawata.dscommerce.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,10 +21,9 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
-        Optional<Product> result = repository.findById(id);
-        Product product = result.get();
-        ProductDTO dto = new ProductDTO(product);
-        return dto;
+        Product product = repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Recurso nao encontrado"));
+        return new ProductDTO(product);
     }
 
     @Transactional(readOnly = true)
