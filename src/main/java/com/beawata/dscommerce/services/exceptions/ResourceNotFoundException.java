@@ -1,4 +1,4 @@
-package com.beawata.dscommerce.exceptions;
+package com.beawata.dscommerce.services.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
 
