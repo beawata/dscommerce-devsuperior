@@ -1,6 +1,7 @@
 package com.beawata.dscommerce.services;
 
 import com.beawata.dscommerce.dto.ProductDTO;
+import com.beawata.dscommerce.dto.ProductMinDTO;
 import com.beawata.dscommerce.entities.Product;
 import com.beawata.dscommerce.services.exceptions.DataBaseException;
 import com.beawata.dscommerce.services.exceptions.ResourceNotFoundException;
@@ -29,9 +30,9 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(String name, Pageable pageable) {
+    public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
         Page<Product> result = repository.searchByName(name, pageable);
-        return result.map(x -> new ProductDTO(x));
+        return result.map(x -> new ProductMinDTO(x));
     }
 
     @Transactional
