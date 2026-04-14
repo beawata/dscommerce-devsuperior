@@ -1,12 +1,17 @@
 package com.beawata.dscommerce.dto;
 
 
+import com.beawata.dscommerce.entities.Category;
 import com.beawata.dscommerce.entities.Product;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonPropertyOrder({"id", "name", "description", "price", "imgUrl"})
 public class ProductDTO {
@@ -26,6 +31,9 @@ public class ProductDTO {
     private Double price;
     private String imgUrl;
 
+    @NotEmpty(message = "Campo requerido")
+    private List<CategoryDTO> categories = new ArrayList<>();
+
 
     public ProductDTO(){}
 
@@ -43,6 +51,9 @@ public class ProductDTO {
         description = entity.getDescription();
         price = entity.getPrice();
         imgUrl = entity.getImgUrl();
+        for(Category cat : entity.getCategories()){
+            categories.add(new CategoryDTO(cat));
+        }
     }
 
     public Long getId() {
@@ -63,5 +74,9 @@ public class ProductDTO {
 
     public String getImgUrl() {
         return imgUrl;
+    }
+
+    public List<CategoryDTO> getCategories() {
+        return categories;
     }
 }

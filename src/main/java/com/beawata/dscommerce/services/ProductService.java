@@ -1,7 +1,9 @@
 package com.beawata.dscommerce.services;
 
+import com.beawata.dscommerce.dto.CategoryDTO;
 import com.beawata.dscommerce.dto.ProductDTO;
 import com.beawata.dscommerce.dto.ProductMinDTO;
+import com.beawata.dscommerce.entities.Category;
 import com.beawata.dscommerce.entities.Product;
 import com.beawata.dscommerce.services.exceptions.DataBaseException;
 import com.beawata.dscommerce.services.exceptions.ResourceNotFoundException;
@@ -75,6 +77,13 @@ public class ProductService {
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
         entity.setImgUrl(dto.getImgUrl());
+
+        entity.getCategories().clear();
+        for (CategoryDTO catDTO : dto.getCategories()) {
+            Category cat = new Category();
+            cat.setId(catDTO.getId());
+            entity.getCategories().add(cat);
+        }
 
     }
 
